@@ -1,5 +1,6 @@
 package com.production.management.controllers;
 
+import com.production.management.entities.Machine;
 import com.production.management.entities.Technicien;
 import com.production.management.services.TechnicienService;
 import org.springframework.beans.factory.annotation.Autowired;

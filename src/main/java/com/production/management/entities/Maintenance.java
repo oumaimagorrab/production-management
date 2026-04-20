@@ -1,6 +1,8 @@
 package com.production.management.entities;
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -28,11 +30,13 @@ public class Maintenance {
     private Long id;
     
     // Relation Many-to-One : plusieurs maintenances peuvent concerner la même machine
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "machine_id", nullable = false)
     private Machine machine;
     
     // Relation Many-to-One : plusieurs maintenances peuvent être effectuées par le même technicien
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "technicien_id", nullable = false)
     private Technicien technicien;

@@ -2,6 +2,9 @@ package com.production.management.entities;
 
 import java.time.LocalDate;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -27,7 +30,7 @@ public class Machine {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) //auto-incrément (MySQL gère l’id automatiquement)
-    private long id;
+    private Long id;
     
     @Column(nullable = false, unique = true) //ne peut pas être NULL, 2 machines ne peuvent pas avoir le même nom
     private String nom;
@@ -48,6 +51,7 @@ public class Machine {
     private List<Maintenance> maintenances;
     
     // Relation One-to-One : un technicien peut être assigné à une machine
+    @JsonIgnore
     @OneToOne(mappedBy = "machineAssignee", fetch = FetchType.LAZY)
     private Technicien technicienAssigne;
     

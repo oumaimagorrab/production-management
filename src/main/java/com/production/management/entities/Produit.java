@@ -2,6 +2,7 @@ package com.production.management.entities;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -22,10 +23,11 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Table(name = "produits")
 public class Produit {
-    
+	
+	@JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     
     @Column(nullable = false)
     private String nom;
@@ -39,6 +41,7 @@ public class Produit {
     private String fournisseur;
     
     // Relation One-to-Many : un produit peut avoir plusieurs ordres de fabrication
+    @JsonIgnore
     @OneToMany(mappedBy = "produit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrdreFabrication> ordresFabrication;
     

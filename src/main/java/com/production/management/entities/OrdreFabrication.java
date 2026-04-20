@@ -6,6 +6,8 @@ import jakarta.persistence.Enumerated;
 
 import java.time.LocalDate;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -30,6 +32,7 @@ public class OrdreFabrication {
     private Long id;
     
     // Relation Many-to-One : plusieurs ordres peuvent concerner le même produit
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "produit_id", nullable = false)
     private Produit produit;
@@ -41,6 +44,7 @@ public class OrdreFabrication {
     private LocalDate date;
     
     // Relation Many-to-One : plusieurs ordres peuvent utiliser la même machine
+    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "machine_id", nullable = false)
     private Machine machine;
