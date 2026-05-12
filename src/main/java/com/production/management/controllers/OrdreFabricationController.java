@@ -1,5 +1,6 @@
 package com.production.management.controllers;
 
+import com.production.management.dtos.OrdreFabricationDTO;
 import com.production.management.entities.OrdreFabrication;
 import com.production.management.services.OrdreFabricationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,47 +16,37 @@ public class OrdreFabricationController {
     private OrdreFabricationService ordreSer;
 
     @GetMapping
-    public List<OrdreFabrication> getAll() {
+    public List<OrdreFabricationDTO> getAll() {
         return ordreSer.getAll();
     }
 
     @GetMapping("/{id}")
-    public OrdreFabrication getById(@PathVariable Long id) {
+    public OrdreFabricationDTO getById(@PathVariable Long id) {
         return ordreSer.getOrdre(id).orElse(null);
     }
 
     @GetMapping("/statut/{statut}")
-    public List<OrdreFabrication> getByStatut(@PathVariable OrdreFabrication.StatutOrdre statut) {
+    public List<OrdreFabricationDTO> getByStatut(@PathVariable OrdreFabrication.StatutOrdre statut) {
         return ordreSer.getByStatut(statut);
     }
 
-    @GetMapping("/machine/{machineId}")
-    public List<OrdreFabrication> getByMachine(@PathVariable Long machineId) {
-        return ordreSer.getByMachine(machineId);
-    }
-
-    @GetMapping("/produit/{produitId}")
-    public List<OrdreFabrication> getByProduit(@PathVariable Long produitId) {
-        return ordreSer.getByProduit(produitId);
-    }
-
     @GetMapping("/planifies")
-    public List<OrdreFabrication> getPlanifies() {
+    public List<OrdreFabricationDTO> getPlanifies() {
         return ordreSer.getPlanifies();
     }
 
     @GetMapping("/retard")
-    public List<OrdreFabrication> getEnRetard() {
+    public List<OrdreFabricationDTO> getEnRetard() {
         return ordreSer.getEnRetard();
     }
 
     @PostMapping
-    public OrdreFabrication create(@RequestBody OrdreFabrication ordre) {
+    public OrdreFabricationDTO create(@RequestBody OrdreFabricationDTO ordre) {
         return ordreSer.save(ordre);
     }
 
     @PutMapping("/{id}")
-    public OrdreFabrication update(@PathVariable Long id, @RequestBody OrdreFabrication ordre) {
+    public OrdreFabricationDTO update(@PathVariable Long id, @RequestBody OrdreFabricationDTO ordre) {
         ordre.setId(id);
         return ordreSer.save(ordre);
     }

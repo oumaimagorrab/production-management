@@ -1,11 +1,11 @@
 package com.production.management.controllers;
 
+import com.production.management.dtos.MaintenanceDTO;
 import com.production.management.entities.Maintenance;
 import com.production.management.services.MaintenanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -16,47 +16,37 @@ public class MaintenanceController {
     private MaintenanceService maintenanceSer;
 
     @GetMapping
-    public List<Maintenance> getAll() {
+    public List<MaintenanceDTO> getAll() {
         return maintenanceSer.getAll();
     }
 
     @GetMapping("/{id}")
-    public Maintenance getById(@PathVariable Long id) {
+    public MaintenanceDTO getById(@PathVariable Long id) {
         return maintenanceSer.getMaintenance(id).orElse(null);
     }
 
     @GetMapping("/machine/{machineId}")
-    public List<Maintenance> getByMachine(@PathVariable Long machineId) {
+    public List<MaintenanceDTO> getByMachine(@PathVariable Long machineId) {
         return maintenanceSer.getByMachine(machineId);
     }
 
-    @GetMapping("/technicien/{technicienId}")
-    public List<Maintenance> getByTechnicien(@PathVariable Long technicienId) {
-        return maintenanceSer.getByTechnicien(technicienId);
-    }
-
     @GetMapping("/type/{type}")
-    public List<Maintenance> getByType(@PathVariable Maintenance.TypeMaintenance type) {
+    public List<MaintenanceDTO> getByType(@PathVariable Maintenance.TypeMaintenance type) {
         return maintenanceSer.getByType(type);
     }
 
     @GetMapping("/planifiees")
-    public List<Maintenance> getPlanifiees() {
+    public List<MaintenanceDTO> getPlanifiees() {
         return maintenanceSer.getPlanifiees();
     }
 
-    @GetMapping("/entre-dates")
-    public List<Maintenance> getEntreDates(@RequestParam LocalDate debut, @RequestParam LocalDate fin) {
-        return maintenanceSer.getEntreDates(debut, fin);
-    }
-
     @PostMapping
-    public Maintenance create(@RequestBody Maintenance maintenance) {
+    public MaintenanceDTO create(@RequestBody MaintenanceDTO maintenance) {
         return maintenanceSer.save(maintenance);
     }
 
     @PutMapping("/{id}")
-    public Maintenance update(@PathVariable Long id, @RequestBody Maintenance maintenance) {
+    public MaintenanceDTO update(@PathVariable Long id, @RequestBody MaintenanceDTO maintenance) {
         maintenance.setId(id);
         return maintenanceSer.save(maintenance);
     }

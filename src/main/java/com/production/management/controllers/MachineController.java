@@ -1,5 +1,6 @@
 package com.production.management.controllers;
 
+import com.production.management.dtos.MachineDTO;
 import com.production.management.entities.Machine;
 import com.production.management.services.MachineService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,27 +16,27 @@ public class MachineController {
     private MachineService machineSer;
 
     @GetMapping
-    public List<Machine> getAll() {
+    public List<MachineDTO> getAll() {
         return machineSer.getAll();
     }
 
     @GetMapping("/{id}")
-    public Machine getById(@PathVariable Long id) {
+    public MachineDTO getById(@PathVariable Long id) {
         return machineSer.getMachine(id).orElse(null);
     }
 
     @GetMapping("/etat/{etat}")
-    public List<Machine> getByEtat(@PathVariable Machine.EtatMachine etat) {
+    public List<MachineDTO> getByEtat(@PathVariable Machine.EtatMachine etat) {
         return machineSer.getByEtat(etat);
     }
 
     @PostMapping
-    public Machine create(@RequestBody Machine machine) {
+    public MachineDTO create(@RequestBody MachineDTO machine) {
         return machineSer.save(machine);
     }
 
     @PutMapping("/{id}")
-    public Machine update(@PathVariable Long id, @RequestBody Machine machine) {
+    public MachineDTO update(@PathVariable Long id, @RequestBody MachineDTO machine) {
         machine.setId(id);
         return machineSer.save(machine);
     }
