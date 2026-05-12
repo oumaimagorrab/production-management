@@ -29,29 +29,25 @@ import lombok.NoArgsConstructor;
 public class Machine {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) //auto-incrément (MySQL gère l’id automatiquement)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private Long id;
     
-    @Column(nullable = false, unique = true) //ne peut pas être NULL, 2 machines ne peuvent pas avoir le même nom
+    @Column(nullable = false, unique = true) 
     private String nom;
     
     @Column(nullable = false)
-    @Enumerated(EnumType.STRING)//type fixe (ex: ACTIVE, EN_PANNE, MAINTENANCE), stocké en texte dans la base
+    @Enumerated(EnumType.STRING)
     private EtatMachine etat;
     
     @Column(name = "maintenance_prochaine")
     private LocalDate maintenanceProchaine;
     
-    // Relation One-to-Many : une machine peut avoir plusieurs ordres de fabrication
     @OneToMany(mappedBy = "machine", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrdreFabrication> ordresFabrication;
     
-    // Relation One-to-Many : une machine peut avoir plusieurs maintenances
     @OneToMany(mappedBy = "machine", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Maintenance> maintenances;
     
-    // Relation One-to-One : un technicien peut être assigné à une machine
-    @JsonIgnore
     @OneToOne(mappedBy = "machineAssignee", fetch = FetchType.LAZY)
     private Technicien technicienAssigne;
     

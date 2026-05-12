@@ -24,7 +24,6 @@ import lombok.NoArgsConstructor;
 @Table(name = "produits")
 public class Produit {
 	
-	@JsonIgnore
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -40,8 +39,6 @@ public class Produit {
     
     private String fournisseur;
     
-    // Relation One-to-Many : un produit peut avoir plusieurs ordres de fabrication
-    @JsonIgnore
     @OneToMany(mappedBy = "produit", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<OrdreFabrication> ordresFabrication;
     

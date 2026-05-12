@@ -29,14 +29,10 @@ public class Maintenance {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    // Relation Many-to-One : plusieurs maintenances peuvent concerner la même machine
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "machine_id", nullable = false)
     private Machine machine;
     
-    // Relation Many-to-One : plusieurs maintenances peuvent être effectuées par le même technicien
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "technicien_id", nullable = false)
     private Technicien technicien;
@@ -48,11 +44,10 @@ public class Maintenance {
     @Enumerated(EnumType.STRING)
     private TypeMaintenance type;
     
-    // Énumération pour le type de maintenance
     public enum TypeMaintenance {
-        PREVENTIVE,    // Maintenance préventive planifiée
-        CORRECTIVE,    // Maintenance corrective (réparation)
-        PREDICTIVE     // Maintenance prédictive basée sur des données
+        PREVENTIVE,    
+        CORRECTIVE,    
+        PREDICTIVE     
     }
 
 }

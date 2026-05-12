@@ -38,12 +38,10 @@ public class Technicien {
     @Column(name = "competence")
     private List<String> competences;
     
-    // Relation One-to-One : un technicien peut être assigné à une machine spécifique
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "machine_assignee_id", unique = true)
     private Machine machineAssignee;
     
-    // Relation One-to-Many : un technicien peut effectuer plusieurs maintenances
     @OneToMany(mappedBy = "technicien", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Maintenance> maintenances;
 

@@ -31,8 +31,6 @@ public class OrdreFabrication {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    // Relation Many-to-One : plusieurs ordres peuvent concerner le même produit
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "produit_id", nullable = false)
     private Produit produit;
@@ -43,8 +41,6 @@ public class OrdreFabrication {
     @Column(nullable = false)
     private LocalDate date;
     
-    // Relation Many-to-One : plusieurs ordres peuvent utiliser la même machine
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "machine_id", nullable = false)
     private Machine machine;
@@ -53,13 +49,12 @@ public class OrdreFabrication {
     @Enumerated(EnumType.STRING)
     private StatutOrdre statut;
     
-    // Énumération pour le statut de l'ordre de fabrication
     public enum StatutOrdre {
-        PLANIFIE,      // Ordre planifié, en attente
-        EN_COURS,      // Production en cours
-        TERMINE,       // Production terminée avec succès
-        ANNULE,        // Ordre annulé
-        EN_RETARD      // Production en retard
+        PLANIFIE,      
+        EN_COURS,      
+        TERMINE,       
+        ANNULE,        
+        EN_RETARD      
     }
 
 }
